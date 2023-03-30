@@ -56,7 +56,7 @@ services:
       - ./projects/project:/var/www/html/project
       - ./logs/php-fpm/php-fpm.log:/var/log/php-fpm.log
       - ./config/php-fpm/custom.ini:/usr/local/etc/php/conf.d/custom.ini
-  nginx_2:
+  nginx_3:
     dns:
       - 8.8.8.8
       - 4.4.4.4
@@ -64,7 +64,7 @@ services:
       context: ./images
       dockerfile: nginx.Dockerfile
     working_dir: /var/www/html
-    container_name: nginx_2
+    container_name: nginx_3
     ports:
       - "8003:80"
     volumes:
