@@ -11,7 +11,7 @@ services:
     working_dir: /var/www/html
     container_name: nginx_1
     ports:
-      - "8000:80"
+      - "8001:80"
     volumes:
       - ./projects/project:/var/www/html/project
       - ./logs/nginx1_log:/var/log/nginx
@@ -39,7 +39,7 @@ services:
     working_dir: /var/www/html
     container_name: nginx_2
     ports:
-      - "8001:80"
+      - "8002:80"
     volumes:
       - ./projects/project:/var/www/html/project
       - ./logs/nginx2_log:/var/log/nginx
@@ -52,6 +52,33 @@ services:
       context: ./images
       dockerfile: php.Dockerfile
     container_name: php_2
+    volumes:
+      - ./projects/project:/var/www/html/project
+      - ./logs/php-fpm/php-fpm.log:/var/log/php-fpm.log
+      - ./config/php-fpm/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+  nginx_2:
+    dns:
+      - 8.8.8.8
+      - 4.4.4.4
+    build:
+      context: ./images
+      dockerfile: nginx.Dockerfile
+    working_dir: /var/www/html
+    container_name: nginx_2
+    ports:
+      - "8003:80"
+    volumes:
+      - ./projects/project:/var/www/html/project
+      - ./logs/nginx3_log:/var/log/nginx
+      - ./config/nginx/nginx3.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - php_3
+
+  php_3:
+    build:
+      context: ./images
+      dockerfile: php.Dockerfile
+    container_name: php_3
     volumes:
       - ./projects/project:/var/www/html/project
       - ./logs/php-fpm/php-fpm.log:/var/log/php-fpm.log
