@@ -11,7 +11,7 @@ services:
     working_dir: /var/www/html
     container_name: nginx_1
     ports:
-      - "80:80"
+      - "8000:80"
     volumes:
       - ./projects:/var/www/html
       - ./logs/nginx_log:/var/log/nginx
@@ -39,7 +39,7 @@ services:
     working_dir: /var/www/html
     container_name: nginx_2
     ports:
-      - "80:80"
+      - "8001:80"
     volumes:
       - ./projects:/var/www/html
       - ./logs/nginx_log:/var/log/nginx
