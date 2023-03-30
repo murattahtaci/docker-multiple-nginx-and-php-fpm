@@ -15,7 +15,7 @@ services:
     volumes:
       - ./projects:/var/www/html
       - ./logs/nginx_log:/var/log/nginx
-      - ./config/nginx/project.conf:/etc/nginx/conf.d/project.conf
+      - ./config/nginx/nginx1.conf:/etc/nginx/conf.d/nginx.conf
     links:
       - php_1
 
@@ -43,7 +43,7 @@ services:
     volumes:
       - ./projects:/var/www/html
       - ./logs/nginx_log:/var/log/nginx
-      - ./config/nginx/project.conf:/etc/nginx/conf.d/project.conf
+      - ./config/nginx/nginx2.conf:/etc/nginx/conf.d/nginx.conf
     links:
       - php_2
 
