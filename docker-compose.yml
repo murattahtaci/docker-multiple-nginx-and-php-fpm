@@ -1,0 +1,58 @@
+version: "3"
+
+services:
+  nginx_1:
+    dns:
+      - 8.8.8.8
+      - 4.4.4.4
+    build:
+      context: ./images
+      dockerfile: nginx.Dockerfile
+    working_dir: /var/www/html
+    container_name: nginx_1
+    ports:
+      - "80:80"
+    volumes:
+      - ./projects:/var/www/html
+      - ./logs/nginx_log:/var/log/nginx
+      - ./config/nginx/project.conf:/etc/nginx/conf.d/project.conf
+    links:
+      - php_1
+
+  php_1:
+    build:
+      context: ./images
+      dockerfile: php.Dockerfile
+    container_name: php_1
+    volumes:
+      - ./projects:/var/www/html
+      - ./logs/php-fpm/php-fpm.log:/var/log/php-fpm.log
+      - ./config/php-fpm/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+
+  nginx_2:
+    dns:
+      - 8.8.8.8
+      - 4.4.4.4
+    build:
+      context: ./images
+      dockerfile: nginx.Dockerfile
+    working_dir: /var/www/html
+    container_name: nginx_2
+    ports:
+      - "80:80"
+    volumes:
+      - ./projects:/var/www/html
+      - ./logs/nginx_log:/var/log/nginx
+      - ./config/nginx/project.conf:/etc/nginx/conf.d/project.conf
+    links:
+      - php_2
+
+  php_2:
+    build:
+      context: ./images
+      dockerfile: php.Dockerfile
+    container_name: php_2
+    volumes:
+      - ./projects:/var/www/html
+      - ./logs/php-fpm/php-fpm.log:/var/log/php-fpm.log
+      - ./config/php-fpm/custom.ini:/usr/local/etc/php/conf.d/custom.ini
