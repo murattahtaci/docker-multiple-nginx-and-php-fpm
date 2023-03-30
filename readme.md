@@ -10,4 +10,4 @@ Note: Container is running with
 
 Wanna use other php version ? Please change only `images/php.Dockerfile` file.
 
-If it's ok to you, please give me a star ! Thanks for using
+Original repository: https://github.com/danganh97/docker-nginx-mysql-php-fpm
