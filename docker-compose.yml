@@ -20,6 +20,7 @@ services:
       - php_1
 
   php_1:
+    image: php81_image
     build:
       context: ./images
       dockerfile: php.Dockerfile
@@ -48,10 +49,10 @@ services:
       - php_2
 
   php_2:
-    build:
-      context: ./images
-      dockerfile: php.Dockerfile
-    container_name: php_2
+    image: php81_image
+    depends_on:
+    - php_1
+    container_name: php_1
     volumes:
       - ./projects/project:/var/www/html/project
       - ./logs/php-fpm/php-fpm.log:/var/log/php-fpm.log
@@ -75,9 +76,9 @@ services:
       - php_3
 
   php_3:
-    build:
-      context: ./images
-      dockerfile: php.Dockerfile
+    image: php81_image
+    depends_on:
+    - php_1
     container_name: php_3
     volumes:
       - ./projects/project:/var/www/html/project
